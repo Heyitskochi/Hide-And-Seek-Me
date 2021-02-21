@@ -70,6 +70,7 @@ public class PlayerPing : MonoBehaviour
         
         GameObject scanner = Instantiate(pingProjectile, firePos.position, Quaternion.identity);
         scanner.GetComponent<Rigidbody>().AddForce(transform.forward * currentFirePower * fireMult);
+        scanner.GetComponent<pingBehavior>().setup(GetComponent<TutorialPlayer>().Planet);
         fired = false;
         currentFirePower = 0;
         timeToFire = Time.time + cooldown;

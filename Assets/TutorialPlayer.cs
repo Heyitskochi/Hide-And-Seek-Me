@@ -12,7 +12,7 @@ public class TutorialPlayer : MonoBehaviour
     public float speed = 4;
     public float JumpHeight = 1.2f;
  
-    float gravity = 100;
+    float gravity = 10;
     bool OnGround = false;
  
  
@@ -52,15 +52,7 @@ public class TutorialPlayer : MonoBehaviour
  
             transform.Rotate(0, -150 * Time.deltaTime, 0);
         }
- 
-        //Jump
- 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(transform.up * 40000 * JumpHeight * Time.deltaTime);
- 
-        }
- 
+
  
  
         //GroundControl
@@ -81,32 +73,45 @@ public class TutorialPlayer : MonoBehaviour
  
  
         }
- 
- 
+
+
+        //Jump
+
+        if (Input.GetKeyDown(KeyCode.Space) && OnGround)
+        {
+            rb.AddForce(transform.up * JumpHeight);
+
+        }
+
+
+
+    }
+    private void FixedUpdate()
+    {
         //GRAVITY and ROTATION
- 
+
         Vector3 gravDirection = (transform.position - Planet.transform.position).normalized;
- 
+
         if (OnGround == false)
         {
             rb.AddForce(gravDirection * -gravity);
- 
+
         }
- 
+
         //
- 
+
         Quaternion toRotation = Quaternion.FromToRotation(transform.up, Groundnormal) * transform.rotation;
         transform.rotation = toRotation;
- 
- 
- 
+
+
     }
- 
- 
+
+
     //CHANGE PLANET
- 
+
     private void OnTriggerEnter(Collider collision)
     {
+        if (collision.tag != "Planet") return;      //terminate if it does not have planet tag
         if (collision.transform != Planet.transform) {
  
             Planet = collision.transform.gameObject;
