@@ -35,9 +35,13 @@ public class TutorialPlayer : MonoBehaviour
     {
  
         //MOVEMENT
- 
-        float x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        float z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        bool runPressed = Input.GetKey(KeyCode.LeftShift);
+        float movementSpeed = speed;
+        if (runPressed)
+            movementSpeed = movementSpeed * 2;
+
+        float x = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
+        float z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
  
         transform.Translate(x, 0, z);
  
