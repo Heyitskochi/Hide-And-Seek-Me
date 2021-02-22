@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
  
 public class TutorialPlayer : MonoBehaviour
 {
@@ -19,21 +20,22 @@ public class TutorialPlayer : MonoBehaviour
     float distanceToGround;
     Vector3 Groundnormal;
  
- 
+    
  
     private Rigidbody rb;
- 
+    private PhotonView PV;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        PV = GetComponent<PhotonView>();
         rb.freezeRotation = true;
     }
  
     // Update is called once per frame
     void Update()
     {
- 
+        if (!PV.IsMine) return;
         //MOVEMENT
  
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
@@ -88,6 +90,7 @@ public class TutorialPlayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (!PV.IsMine) return;
         //GRAVITY and ROTATION
 
         Vector3 gravDirection = (transform.position - Planet.transform.position).normalized;
