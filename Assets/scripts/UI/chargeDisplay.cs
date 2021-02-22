@@ -18,6 +18,6 @@ public class chargeDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        chargeText.text = "Charge Time"
+        chargeText.text = "Charge Time";
     }
 }
