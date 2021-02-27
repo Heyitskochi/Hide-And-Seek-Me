@@ -1366,9 +1366,8 @@ GameObject:
   - component: {fileID: 6168743965801963152}
   - component: {fileID: 6168743965801963156}
   - component: {fileID: 6168743965801963155}
-  - component: {fileID: -6007268628686638034}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: newPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1454,7 +1453,7 @@ MonoBehaviour:
   Planet: {fileID: 0}
   PlayerPlaceholder: {fileID: 0}
   speed: 4
-  JumpHeight: 100
+  JumpHeight: 1
 --- !u!114 &6168743965801963155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1467,28 +1466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f80205b4a2e9da4da44dda0172a52c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-6007268628686638034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6438650095250506183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  observableSearch: 2
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents: []
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &6529875762111111836
 GameObject:
   m_ObjectHideFlags: 0

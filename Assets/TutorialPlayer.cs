@@ -69,7 +69,7 @@ public class TutorialPlayer : MonoBehaviour
             distanceToGround = hit.distance;
             Groundnormal = hit.normal;
  
-            if (distanceToGround <= 0.2f)
+            if (distanceToGround <= 0.05f)
             {
                 OnGround = true;
             }
