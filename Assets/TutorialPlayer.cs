@@ -13,7 +13,7 @@ public class TutorialPlayer : MonoBehaviour
     public float speed = 4;
     public float JumpHeight = 1.2f;
  
-    float gravity = 10;
+    float gravity = 15;
     bool OnGround = false;
  
  
@@ -30,6 +30,7 @@ public class TutorialPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
         rb.freezeRotation = true;
+        if(!PV.IsMine)        transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
     }
  
     // Update is called once per frame
@@ -59,10 +60,21 @@ public class TutorialPlayer : MonoBehaviour
             transform.Rotate(0, -150 * Time.deltaTime, 0);
         }
 
- 
- 
+
+
         //GroundControl
- 
+        Vector3 rayDownward = transform.position - Planet.transform.position;
+        distanceToGround = rayDownward.magnitude;
+        Groundnormal = rayDownward.normalized;
+        if (distanceToGround <= 5f)
+        {
+            OnGround = true;
+        }
+        else
+        {
+            OnGround = false;
+        }
+        /*
         RaycastHit hit = new RaycastHit();
         if (Physics.Raycast(transform.position, -transform.up, out hit, 10)) {
  
@@ -78,8 +90,7 @@ public class TutorialPlayer : MonoBehaviour
             }
  
  
-        }
-
+        }*/
 
         //Jump
 
@@ -118,10 +129,10 @@ public class TutorialPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.tag != "Planet") return;      //terminate if it does not have planet tag
-        if (collision.transform != Planet.transform) {
+        if (collision.tag != "GravField") return;      //terminate if it does not have planet tag
+        if (collision.transform.parent != Planet.transform) {
  
-            Planet = collision.transform.gameObject;
+            Planet = collision.transform.parent.gameObject;
  
             Vector3 gravDirection = (transform.position - Planet.transform.position).normalized;
  

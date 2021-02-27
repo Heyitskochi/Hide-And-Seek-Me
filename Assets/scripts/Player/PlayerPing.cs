@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using System.IO;
 
 public class PlayerPing : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerPing : MonoBehaviour
     [SerializeField]
     private float fireMult = 0.8f;
     private float currentFirePower = 0;
-    private float maxFirePower = 3;
+    [SerializeField]private float maxFirePower = 3;
     private float cooldown = 2;
     private float timeToFire;
     private bool fired = false;
@@ -35,7 +36,8 @@ public class PlayerPing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!fired)
+        if (!PV.IsMine) return; //return if it is not current player's unit
+        if(!fired )
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -71,7 +73,7 @@ public class PlayerPing : MonoBehaviour
         GameObject scanner = Instantiate(pingProjectile, firePos.position, Quaternion.identity);
         scanner.GetComponent<Rigidbody>().AddForce(transform.forward * currentFirePower * fireMult);
         scanner.GetComponent<pingBehavior>().setup(GetComponent<TutorialPlayer>().Planet);
-        fired = false;
+        fired = true;
         currentFirePower = 0;
         timeToFire = Time.time + cooldown;
     }

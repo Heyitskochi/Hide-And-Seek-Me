@@ -21,7 +21,7 @@ public class TutorialPlayerPlaceholder : MonoBehaviour
         //ROTATION
         //Quaternion toRotation = Quaternion.FromToRotation(transform.up, gravDirection) * transform.rotation;
         Quaternion toRotation = Quaternion.LookRotation(Player.transform.forward, gravDirection);
-        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 0.1f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 0.08f);
  
     }
  
