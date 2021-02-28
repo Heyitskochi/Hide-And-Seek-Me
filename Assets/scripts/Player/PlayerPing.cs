@@ -39,11 +39,11 @@ public class PlayerPing : MonoBehaviour
         if (!PV.IsMine) return; //return if it is not current player's unit
         if(!fired )
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetMouseButton(0))
             {
                 charge();
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetMouseButtonUp(0))
             {
                 fire();
             }

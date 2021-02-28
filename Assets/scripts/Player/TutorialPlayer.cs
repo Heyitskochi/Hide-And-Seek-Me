@@ -13,13 +13,13 @@ public class TutorialPlayer : MonoBehaviour
     public float speed = 4;
     public float JumpHeight = 1.2f;
  
-    float gravity = 5;
+    float gravity = 15;
     bool OnGround = false;
  
  
     float distanceToGround;
     Vector3 Groundnormal;
- 
+    Vector3 currentVelocity;
     
  
     private Rigidbody rb;
@@ -43,15 +43,16 @@ public class TutorialPlayer : MonoBehaviour
         if (!PV.IsMine) return;
         //MOVEMENT
         bool runPressed = Input.GetKey(KeyCode.LeftShift);
-        float movementSpeed = speed;
-        if (runPressed)
-            movementSpeed = movementSpeed * 2;
 
-        float x = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
-        float z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
- 
-        transform.Translate(x, 0, z);
- 
+        float x = Input.GetAxis("Horizontal") * Time.deltaTime;
+        float z = Input.GetAxis("Vertical") * Time.deltaTime;
+        currentVelocity = new Vector3(x, 0, z).normalized * speed;
+
+        if (runPressed)
+            currentVelocity = currentVelocity * 2;
+
+
+        //transform.Translate(x, 0, z);
         //Local Rotation
  
         if (Input.GetKey(KeyCode.E)) {
@@ -67,16 +68,19 @@ public class TutorialPlayer : MonoBehaviour
 
 
         //GroundControl
+
         Vector3 rayDownward = transform.position - Planet.transform.position;
         distanceToGround = rayDownward.magnitude;
         Groundnormal = rayDownward.normalized;
-        if (distanceToGround <= 5f)
+        if (distanceToGround <= 5.0f)
         {
             OnGround = true;
+            rb.drag = 3;
         }
         else
         {
             OnGround = false;
+            rb.drag = 0;
         }
         /*
         RaycastHit hit = new RaycastHit();
@@ -119,6 +123,10 @@ public class TutorialPlayer : MonoBehaviour
             rb.AddForce(gravDirection * -gravity);
 
         }
+        else
+        {
+            rb.AddRelativeForce(currentVelocity);
+        }
 
         //
 
@@ -144,7 +152,7 @@ public class TutorialPlayer : MonoBehaviour
             Quaternion toRotation = Quaternion.FromToRotation(transform.up, gravDirection) * transform.rotation;
             transform.rotation = toRotation;
  
-            rb.velocity = Vector3.zero;
+            //rb.velocity = Vector3.zero;
             rb.AddForce(gravDirection * gravity);
  
  
