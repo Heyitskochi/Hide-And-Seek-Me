@@ -1458,6 +1458,7 @@ MonoBehaviour:
   PlayerPlaceholder: {fileID: 0}
   speed: 4
   JumpHeight: 200
+  PV: {fileID: 0}
 --- !u!114 &6168743965801963155
 MonoBehaviour:
   m_ObjectHideFlags: 0
